@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Doctor Dashboard | Smart Clinic</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  :root{ --primary:#0a5ea5; --secondary:#14a0a0; --bg:#eef6ff; --danger:#dc3545; }
+  *{ margin:0; padding:0; box-sizing:border-box; font-family:"Segoe UI", sans-serif; }
+  body{ background:linear-gradient(120deg,#e8f3ff,#f5fbff); min-height:100vh; color:#233; }
+  .page{ max-width:1320px; margin:0 auto; padding:24px; }
+  header{ background:linear-gradient(90deg,var(--primary),var(--secondary)); color:white; padding:18px 24px; border-radius:16px; box-shadow:0 12px 25px rgba(0,0,0,0.16); margin-bottom:18px; display:flex; justify-content:space-between; align-items:center; }
+  .nav-links{ display:flex; gap:10px; flex-wrap:wrap; }
+  .nav-links a{ color:white; text-decoration:none; font-weight:600; padding:8px 12px; border-radius:999px; background:rgba(255,255,255,0.14); }
+  .grid{ display:grid; grid-template-columns:1.05fr 0.95fr; gap:18px; }
+  .card{ background:rgba(255,255,255,0.95); padding:22px; border-radius:18px; box-shadow:0 15px 40px rgba(0,0,0,0.12); }
+  .stats{ display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:12px; margin-bottom:16px; }
+  .stat-box{ background:linear-gradient(135deg,#e7f1ff,#f7fbff); padding:16px; border-radius:14px; text-align:center; }
+  .stat-box h2{ margin-top:6px; font-size:24px; color:var(--primary); }
+  .profile-card{ display:flex; gap:14px; align-items:center; margin-bottom:14px; padding:14px; background:#f8fbff; border-radius:14px; border:1px solid #dce9f7; }
+  .profile-card img{ width:70px; height:70px; border-radius:50%; object-fit:cover; }
+  .panel{ margin-top:12px; padding:16px; background:#f8fbff; border-radius:12px; border:1px solid #dce9f7; }
+  .list-item{ padding:10px 0; border-bottom:1px solid #eaeff5; }
+  .list-item:last-child{ border-bottom:none; }
+  input, select, textarea{ width:100%; padding:10px; margin-top:8px; border-radius:8px; border:1px solid #ced4da; }
+  .actions{ display:flex; flex-wrap:wrap; gap:12px; margin-top:12px; }
+  button{ padding:12px 16px; border:none; background:var(--primary); color:white; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer; transition:0.3s; }
+  button:hover{ transform:translateY(-2px); background:#084c86; }
+  .logout{ background:#6c757d; }
+  .muted{ color:#6c757d; font-size:13px; }
+  .pill{ display:inline-block; padding:5px 8px; border-radius:999px; background:#e8f3ff; color:#0a5ea5; font-size:12px; margin-right:6px; margin-top:6px; }
+  @media(max-width:900px){ .grid{ grid-template-columns:1fr; } .stats{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <div>
+      <div style="font-size:14px; opacity:0.9;">Smart Clinic</div>
+      <div style="font-size:22px; font-weight:700;">Doctor Dashboard</div>
+    </div>
+    <div class="nav-links">
+      <a href="#">Dashboard</a>
+      <a href="#">Patients</a>
+      <a href="#">Appointments</a>
+      <a href="#">Reports</a>
+    </div>
+  </header>
+
+  <div class="grid">
+    <div>
+      <div class="card">
+        <div id="docNameDisplay" class="muted">Welcome, Doctor</div>
+        <div class="stats">
+          <div class="stat-box"><p>Patients Waiting</p><h2 id="waitingCount">0</h2></div>
+          <div class="stat-box"><p>Today's Visits</p><h2 id="todayVisits">0</h2></div>
+          <div class="stat-box"><p>Completed</p><h2 id="completedCount">0</h2></div>
+          <div class="stat-box"><p>Status</p><h2 id="consultStatus">Idle</h2></div>
+        </div>
+
+        <div class="profile-card" id="doctorProfile"></div>
+
+        <div class="panel">
+          <h3 style="margin-top:0;">Current Patient</h3>
+          <p id="currentPatientName" style="font-size: 20px; font-weight: bold; margin-top: 5px;">None</p>
+          <p id="currentTokenDisplay" style="color: var(--secondary); font-weight: bold;"></p>
+          <div class="actions">
+            <button onclick="callNext()">Call Next Patient</button>
+            <button onclick="startConsultation()" style="background: #28a745;">Start Consultation</button>
+            <button onclick="endConsultation()" style="background: #6f42c1;">End & Clear</button>
+            <button class="logout" onclick="logout()">Logout</button>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3 style="margin-top:0;">Prescribe Medicine</h3>
+          <select id="prescriptionMedicine">
+            <option value="Paracetamol">Paracetamol</option>
+            <option value="Azithromycin">Azithromycin</option>
+            <option value="Vitamin C">Vitamin C</option>
+            <option value="Insulin">Insulin</option>
+            <option value="Cofsils Syrup">Cofsils Syrup</option>
+          </select>
+          <input id="prescriptionNote" placeholder="Doctor notes / dosage" />
+          <button onclick="sendPrescription()" style="margin-top:12px;">Send Prescription to Pharmacy</button>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="card">
+        <h3 style="margin-top:0;">Today's Appointments</h3>
+        <div id="appointmentList"></div>
+      </div>
+      <div class="card" style="margin-top:16px;">
+        <h3 style="margin-top:0;">Upcoming Consultations</h3>
+        <div id="upcomingList"></div>
+      </div>
+      <div class="card" style="margin-top:16px;">
+        <h3 style="margin-top:0;">Patient Analytics</h3>
+        <div id="analyticsSummary"></div>
+      </div>
+      <div class="card" style="margin-top:16px;">
+        <h3 style="margin-top:0;">Previous Consultations & Details</h3>
+        <div id="historyList"></div>
+      </div>
+      <div class="card" style="margin-top:16px;">
+        <h3 style="margin-top:0;">Required Past Reports</h3>
+        <div class="muted" style="margin-bottom:8px;">Reports needed from earlier visits for follow-up review.</div>
+        <div id="reportsList"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="js/doctor.js"></script>
+<script type="module" src="js/helpDesk.js"></script>
+</body>
+</html>

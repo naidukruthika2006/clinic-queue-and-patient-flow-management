@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book Appointment | Smart Clinic</title>
+  <style>
+    :root{ --primary:#0a5ea5; --secondary:#14a0a0; --bg:#eef6ff; }
+    *{box-sizing:border-box;font-family:'Segoe UI',sans-serif;} body{margin:0;background:var(--bg);color:#222;} header{background:linear-gradient(90deg,var(--primary),var(--secondary));color:white;padding:20px 24px;font-size:22px;font-weight:600;} main{max-width:1100px;margin:auto;padding:24px;} .grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;} .card{background:white;padding:20px;border-radius:14px;box-shadow:0 10px 25px rgba(0,0,0,0.08);} select,input,button{width:100%;padding:10px;border-radius:8px;border:1px solid #ced4da;margin-top:8px;font-size:14px;} button{background:var(--primary);color:white;border:none;cursor:pointer;font-weight:600;} .slot{padding:12px;border:1px solid #e3eaf2;border-radius:10px;margin-top:8px;background:#f8fbff;} .muted{color:#6c757d;font-size:13px;} @media(max-width:800px){.grid{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+  <header>📅 Book Appointment</header>
+  <main>
+    <div class="grid">
+      <div class="card">
+        <h3 style="margin-top:0;">Choose Doctor</h3>
+        <div style="margin-bottom:10px;color:#6c757d;font-size:13px;">Available doctors with full names and specialties</div>
+        <select id="doctorSelect"></select>
+        <div id="doctorDetails" style="margin-top:10px;padding:10px;border-radius:8px;background:#f8fbff;border:1px solid #dce9f7;"></div>
+        <input id="patientName" placeholder="Your Name" />
+        <input id="patientPhone" placeholder="Phone Number" />
+        <button id="bookBtn">Book Appointment</button>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0;">Available Time Slots</h3>
+        <div id="slotList"></div>
+      </div>
+    </div>
+  </main>
+  <script type="module" src="js/appointments.js"></script>
+  <script type="module" src="js/helpDesk.js"></script>
+</body>
+</html>

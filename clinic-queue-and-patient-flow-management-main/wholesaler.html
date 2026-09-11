@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wholesaler Dashboard | Smart Clinic</title>
+  <style>
+    :root{ --primary:#0a5ea5; --secondary:#14a0a0; --bg:#eef6ff; }
+    *{box-sizing:border-box;font-family:'Segoe UI',sans-serif;} body{margin:0;background:var(--bg);color:#222;} header{background:linear-gradient(90deg,var(--primary),var(--secondary));color:white;padding:20px 24px;font-size:22px;font-weight:600;} main{max-width:1100px;margin:auto;padding:24px;} .card{background:white;padding:20px;border-radius:14px;box-shadow:0 10px 25px rgba(0,0,0,0.08);} button{padding:10px 12px;border:none;border-radius:8px;background:var(--primary);color:white;cursor:pointer;font-weight:600;} table{width:100%;border-collapse:collapse;} th,td{padding:10px;border-bottom:1px solid #e9ecef;text-align:left;} th{background:#f4f9ff;} .pill{display:inline-block;padding:4px 8px;border-radius:999px;background:#e8f5e9;color:#2e7d32;font-size:12px;font-weight:600;} .muted{color:#6c757d;font-size:13px;}
+  </style>
+</head>
+<body>
+  <header>📦 Wholesaler Dashboard</header>
+  <main>
+    <div class="card">
+      <h3 style="margin-top:0;">Receive and Distribute Stock</h3>
+      <table>
+        <thead><tr><th>Medicine</th><th>Category</th><th>Stock</th><th>Status</th><th>Action</th></tr></thead>
+        <tbody id="wholesalerTable"></tbody>
+      </table>
+    </div>
+  </main>
+  <script type="module" src="js/wholesaler.js"></script>
+  <script type="module" src="js/helpDesk.js"></script>
+</body>
+</html>

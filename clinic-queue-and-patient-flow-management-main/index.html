@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Smart Clinic Queue System | Login</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root{
+  --primary:#0a5ea5;
+  --accent:#00c897;
+  --ink:#07213b;
+}
+*{ margin:0; padding:0; box-sizing:border-box; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; }
+html{ scroll-behavior:smooth; }
+body, html{ min-height:100%; background:#041423; color:#fff; }
+body{ overflow-x:hidden; }
+.hero-section{ position:relative; min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px; overflow:hidden; }
+.hero-background{ position:absolute; inset:0; background-size:cover; background-position:center; transform:scale(1.03); transition:background-image 1s ease, transform 8s ease; filter:brightness(.85); }
+.hero-background::after{ content:""; position:absolute; inset:0; background:linear-gradient(135deg, rgba(0,24,58,.78), rgba(0,53,110,.66)); }
+.hero-overlay{ position:absolute; inset:0; background:radial-gradient(circle at top left, rgba(0,200,151,.14), transparent 32%), linear-gradient(90deg, rgba(255,255,255,.04), transparent 40%); }
+.hero-content-shell{ position:relative; z-index:2; width:min(1200px, 100%); display:grid; grid-template-columns:1.05fr 0.95fr; gap:24px; align-items:center; }
+.hero-copy{ animation:fadeUp 1s ease both; }
+.hero-badge{ display:inline-block; padding:8px 14px; border-radius:999px; background:rgba(255,255,255,.16); color:#e8f6ff; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; backdrop-filter:blur(8px); border:1px solid rgba(255,255,255,.16); }
+.hero-title{ font-size:clamp(2.2rem, 4.2vw, 3.8rem); line-height:1.12; margin:16px 0 10px; color:white; font-weight:800; text-shadow:0 8px 30px rgba(0,0,0,.3); }
+.typing-text{ font-size:clamp(1rem, 1.6vw, 1.3rem); color:#e1f4ff; margin-bottom:20px; min-height:1.7em; border-right:2px solid rgba(255,255,255,.8); display:inline-block; padding-right:6px; white-space:nowrap; overflow:hidden; }
+.hero-actions{ display:flex; flex-wrap:wrap; gap:12px; margin:18px 0 24px; }
+.btn-primary, .btn-secondary{ display:inline-flex; align-items:center; justify-content:center; padding:13px 24px; border-radius:999px; text-decoration:none; font-weight:700; transition:transform .25s ease, box-shadow .25s ease, background .25s ease; }
+.btn-primary{ background:linear-gradient(135deg, var(--accent), #0dbb90); color:white; box-shadow:0 12px 28px rgba(0,200,151,.25); }
+.btn-primary:hover{ transform:translateY(-2px) scale(1.02); }
+.btn-secondary{ background:rgba(255,255,255,.12); color:white; border:1px solid rgba(255,255,255,.2); backdrop-filter:blur(8px); }
+.btn-secondary:hover{ background:white; color:var(--primary); transform:translateY(-2px); }
+.hero-stats{ display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:10px; margin-top:22px; }
+.stat-card{ background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.16); backdrop-filter:blur(8px); border-radius:14px; padding:12px; text-align:center; }
+.stat-card strong{ display:block; font-size:1.1rem; color:#fff; }
+.stat-card span{ font-size:.8rem; color:#dbefff; }
+.glass-panel{ padding:28px 24px; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.2); backdrop-filter:blur(14px); border-radius:24px; box-shadow:0 24px 60px rgba(0,0,0,.24); }
+.logo{ text-align:center; font-size:22px; font-weight:700; color:white; }
+.sub{ text-align:center; font-size:13px; color:#dceffd; margin-bottom:18px; }
+h2{ text-align:center; color:white; margin-bottom:14px; }
+input, select{ width:100%; padding:11px; margin:8px 0; border-radius:7px; border:1px solid rgba(255,255,255,.2); font-size:14px; background:rgba(255,255,255,.9); color:#07213b; }
+input:focus, select:focus{ outline:none; border-color:var(--accent); }
+button{ width:100%; padding:12px; margin-top:12px; border:none; border-radius:7px; background:linear-gradient(135deg, var(--accent), #0aa57e); color:white; font-size:15px; font-weight:600; cursor:pointer; }
+button:hover{ transform:translateY(-1px); }
+.switch{ text-align:center; margin-top:16px; color:#eaf7ff; font-size:14px; font-weight:600; cursor:pointer; }
+.switch span{ text-decoration:underline; }
+.footer{ text-align:center; margin-top:10px; font-size:12px; color:#cfe8ff; }
+.quick-links{ margin-top:18px; padding:14px; border:1px solid rgba(255,255,255,.16); border-radius:10px; background:rgba(255,255,255,.1); }
+.quick-links-title{ font-size:13px; font-weight:700; color:#e7f8ff; margin-bottom:8px; text-transform:uppercase; letter-spacing:0.4px; }
+.link-grid{ display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.quick-link{ display:block; padding:8px 10px; border-radius:8px; background:rgba(255,255,255,.14); color:white; text-decoration:none; font-size:13px; font-weight:600; border:1px solid rgba(255,255,255,.14); text-align:center; }
+.quick-link:hover{ background:rgba(255,255,255,.2); }
+.quick-hint{ margin-top:8px; font-size:12px; color:#dceffd; text-align:center; }
+@keyframes fadeUp{ from{ opacity:0; transform:translateY(30px); } to{ opacity:1; transform:translateY(0); } }
+@media(max-width:900px){ .hero-content-shell{ grid-template-columns:1fr; } .hero-stats{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
+@media(max-width:600px){ .hero-stats{ grid-template-columns:1fr 1fr; } .hero-actions{ flex-direction:column; } .btn-primary, .btn-secondary{ width:100%; } }
+</style>
+</head>
+
+<body>
+<section class="hero-section">
+  <div class="hero-background" id="heroBackground"></div>
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content-shell">
+    <div class="hero-copy">
+      <div class="hero-badge">Premium hospital experience</div>
+      <h1 class="hero-title">Smart Clinic Management System</h1>
+      <p class="typing-text" id="heroSubtitle">Your Digital Healthcare Companion</p>
+
+      <div class="hero-actions">
+        <a class="btn-primary" href="#login-panel">Get Started</a>
+        <a class="btn-secondary" href="appointments.html">Book Appointment</a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat-card"><strong>20+</strong><span>Doctors</span></div>
+        <div class="stat-card"><strong>100+</strong><span>Medicines</span></div>
+        <div class="stat-card"><strong>24/7</strong><span>Support</span></div>
+        <div class="stat-card"><strong>50+</strong><span>Appointments</span></div>
+      </div>
+    </div>
+
+    <div class="glass-panel" id="login-panel">
+      <div class="logo">🏥 Smart Clinic</div>
+      <div class="sub">Digital Queue Management System</div>
+
+      <h2 id="title">Login</h2>
+
+      <form id="loginForm">
+        <input type="text" id="loginUsername" placeholder="Username" required>
+        <input type="password" id="loginPassword" placeholder="Password" required>
+        <button type="submit">Login</button>
+      </form>
+
+      <form id="signupForm" style="display:none;">
+        <input type="text" id="signupName" placeholder="Full Name" required>
+        <input type="text" id="signupUsername" placeholder="Username" required>
+        <input type="password" id="signupPassword" placeholder="Password (min 6 chars)" required>
+        <select id="signupRole" required>
+          <option value="">Select Role</option>
+          <option value="doctor">Doctor</option>
+          <option value="staff">Staff</option>
+          <option value="patient">Patient</option>
+        </select>
+        <button type="submit">Create Account</button>
+      </form>
+
+      <div class="switch" id="toggle">
+        Don't have an account? <span>Sign Up</span>
+      </div>
+
+      <div class="quick-links">
+        <div class="quick-links-title">Quick access</div>
+        <div class="link-grid">
+          <a class="quick-link" href="patient.html">Patient Dashboard</a>
+          <a class="quick-link" href="doctor.html">Doctor Dashboard</a>
+          <a class="quick-link" href="staff.html">Staff Dashboard</a>
+          <a class="quick-link" href="medicine.html">Medicines</a>
+          <a class="quick-link" href="pharmacy.html">Pharmacy</a>
+          <a class="quick-link" href="producer.html">Producer</a>
+          <a class="quick-link" href="wholesaler.html">Wholesaler</a>
+          <a class="quick-link" href="retailer.html">Retailer</a>
+          <a class="quick-link" href="consumer.html">Consumer</a>
+        </div>
+        <div class="quick-hint">Use the login form above for patient, staff, or doctor access.</div>
+      </div>
+
+      <div class="footer">Team TECHDIVAS © Smart Clinic System</div>
+    </div>
+  </div>
+</section>
+
+<script type="module">
+import {
+  saveUser,
+  userExists,
+  authenticateUser,
+  saveLoggedInUser,
+  getLoggedInUser
+} from "./js/queue.js";
+
+const loginForm = document.getElementById("loginForm");
+const signupForm = document.getElementById("signupForm");
+const toggle = document.getElementById("toggle");
+const title = document.getElementById("title");
+
+const existingUser = getLoggedInUser();
+if (existingUser) {
+  if (existingUser.role === "doctor") location.href = "doctor.html";
+  else if (existingUser.role === "staff") location.href = "staff.html";
+  else location.href = "patient.html";
+}
+
+const heroBackground = document.getElementById("heroBackground");
+const heroSubtitle = document.getElementById("heroSubtitle");
+const imageList = [
+  "https://images.unsplash.com/photo-1586773860418-d37222d8fce3?auto=format&fit=crop&w=1600&q=80",
+  "https://images.unsplash.com/photo-1538108149393-fbbd81895907?auto=format&fit=crop&w=1600&q=80",
+  "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1600&q=80"
+];
+let imageIndex = 0;
+setInterval(() => {
+  imageIndex = (imageIndex + 1) % imageList.length;
+  heroBackground.style.backgroundImage = `url('${imageList[imageIndex]}')`;
+}, 5000);
+
+const subtitleWords = ["Your Digital Healthcare Companion", "Queue, Pharmacy, and Care in One Place", "Built for Fast, Smart Clinics"];
+let wordIndex = 0;
+let charIndex = 0;
+let deleting = false;
+
+function typeSubtitle() {
+  const current = subtitleWords[wordIndex];
+  heroSubtitle.textContent = current.slice(0, charIndex);
+  if (!deleting && charIndex < current.length) {
+    charIndex++;
+    setTimeout(typeSubtitle, 70);
+  } else if (!deleting && charIndex === current.length) {
+    deleting = true;
+    setTimeout(typeSubtitle, 1200);
+  } else if (deleting && charIndex > 0) {
+    charIndex--;
+    setTimeout(typeSubtitle, 40);
+  } else {
+    deleting = false;
+    wordIndex = (wordIndex + 1) % subtitleWords.length;
+    setTimeout(typeSubtitle, 350);
+  }
+}
+typeSubtitle();
+
+toggle.onclick = () => {
+  if (loginForm.style.display !== "none") {
+    loginForm.style.display = "none";
+    signupForm.style.display = "block";
+    title.innerText = "Sign Up";
+    toggle.innerHTML = 'Already have an account? <span>Login</span>';
+  } else {
+    loginForm.style.display = "block";
+    signupForm.style.display = "none";
+    title.innerText = "Login";
+    toggle.innerHTML = 'Don\'t have an account? <span>Sign Up</span>';
+  }
+};
+
+signupForm.onsubmit = (e) => {
+  e.preventDefault();
+
+  const name = document.getElementById("signupName").value.trim();
+  const username = document.getElementById("signupUsername").value.toLowerCase().trim();
+  const password = document.getElementById("signupPassword").value;
+  const role = document.getElementById("signupRole").value;
+
+  if (!name || !username || !password || !role) {
+    alert("Please complete all signup fields.");
+    return;
+  }
+
+  if (password.length < 6) {
+    alert("Password must be at least 6 characters");
+    return;
+  }
+
+  if (userExists(username)) {
+    alert("Username already exists in our local database.");
+    return;
+  }
+
+  saveUser({ name, username, password, role });
+  alert("Account created successfully! Please login.");
+  location.reload();
+};
+
+loginForm.onsubmit = (e) => {
+  e.preventDefault();
+
+  const username = document.getElementById("loginUsername").value.toLowerCase().trim();
+  const password = document.getElementById("loginPassword").value;
+
+  const userData = authenticateUser(username, password);
+  if (!userData) {
+    alert("Invalid username or password");
+    return;
+  }
+
+  saveLoggedInUser(userData);
+
+  if (userData.role === "doctor") location.href = "doctor.html";
+  else if (userData.role === "staff") location.href = "staff.html";
+  else location.href = "patient.html";
+};
+</script>
+
+</body>
+</html>

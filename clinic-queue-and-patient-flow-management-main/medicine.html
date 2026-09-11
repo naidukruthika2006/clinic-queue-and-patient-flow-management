@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Available Medicines | Smart Clinic</title>
+  <style>
+    :root{ --primary:#0a5ea5; --secondary:#14a0a0; --bg:#eef6ff; --card:#fff; --danger:#dc3545; }
+    *{box-sizing:border-box;font-family:'Segoe UI',sans-serif;} body{margin:0;background:var(--bg);color:#222;} header{background:linear-gradient(90deg,var(--primary),var(--secondary));color:white;padding:20px 24px;font-size:22px;font-weight:600;} main{max-width:1200px;margin:auto;padding:24px;} .toolbar,.card{background:var(--card);padding:20px;border-radius:14px;box-shadow:0 10px 25px rgba(0,0,0,0.08);margin-bottom:20px;} .toolbar{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:12px;} .summary-grid{display:grid;grid-template-columns:repeat(4, minmax(0, 1fr));gap:12px;margin-bottom:16px;} .summary-card{background:#f4f9ff;border:1px solid #dce9f7;padding:12px;border-radius:12px;} .summary-card strong{display:block;font-size:20px;color:var(--primary);} .summary-card span{font-size:12px;color:#6c757d;} input,select,button{width:100%;padding:10px;border-radius:8px;border:1px solid #ced4da;font-size:14px;} button{background:var(--primary);color:white;border:none;cursor:pointer;font-weight:600;} button.secondary{background:#6c757d;} table{width:100%;border-collapse:collapse;background:white;border-radius:12px;overflow:hidden;} th,td{padding:12px;border-bottom:1px solid #e9ecef;text-align:left;} th{background:#f4f9ff;color:var(--primary);} .pill{display:inline-block;padding:4px 8px;border-radius:999px;background:#e8f5e9;color:#2e7d32;font-size:12px;font-weight:600;} .pill.out{background:#fdecea;color:#c62828;} .actions button{padding:8px 10px;margin-right:6px;} .link{color:var(--primary);font-weight:600;cursor:pointer;text-decoration:none;} .muted{color:#6c757d;font-size:13px;} @media(max-width:900px){.toolbar{grid-template-columns:1fr 1fr;} .summary-grid{grid-template-columns:1fr 1fr;}} @media(max-width:600px){.toolbar{grid-template-columns:1fr;} .summary-grid{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+  <header>💊 Available Medicines</header>
+  <main>
+    <div class="toolbar">
+      <input id="searchBox" placeholder="Search Medicines..." />
+      <select id="categoryFilter"><option value="">Category</option><option value="Tablets">Tablets</option><option value="Capsules">Capsules</option><option value="Syrups">Syrups</option><option value="Injections">Injections</option><option value="Ointments">Ointments</option><option value="Drops">Drops</option><option value="Medical Equipment">Medical Equipment</option><option value="Health Supplements">Health Supplements</option></select>
+      <select id="availabilityFilter"><option value="">Availability</option><option value="available">Available</option><option value="out">Out of stock</option></select>
+      <select id="brandFilter"><option value="">Brand</option><option value="Cipla">Cipla</option><option value="Sun Pharma">Sun Pharma</option><option value="GSK">GSK</option><option value="Novo Nordisk">Novo Nordisk</option><option value="Piramal">Piramal</option><option value="Abbott">Abbott</option></select>
+    </div>
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px;">
+        <h3 style="margin:0;">Medicine Catalog</h3>
+        <a class="link" href="patient.html">Back to Patient Dashboard</a>
+      </div>
+      <div id="catalogSummary" class="summary-grid"></div>
+      <table>
+        <thead>
+          <tr><th>Medicine</th><th>Category</th><th>Stock</th><th>Price</th><th>Status</th><th>Action</th></tr>
+        </thead>
+        <tbody id="medicineTableBody"></tbody>
+      </table>
+    </div>
+  </main>
+  <script type="module" src="js/medicineCatalog.js"></script>
+  <script type="module" src="js/helpDesk.js"></script>
+</body>
+</html>

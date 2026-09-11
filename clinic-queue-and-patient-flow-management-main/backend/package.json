@@ -1,0 +1,16 @@
+{
+  "name": "clinic-queue-backend",
+  "version": "1.0.0",
+  "description": "Authentication backend for the clinic queue manager",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.3",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.1",
+    "mongoose": "^8.0.1"
+  }
+}
